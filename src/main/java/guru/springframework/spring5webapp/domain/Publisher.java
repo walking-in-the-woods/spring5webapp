@@ -2,7 +2,6 @@ package guru.springframework.spring5webapp.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -16,6 +15,7 @@ public class Publisher {
     private String addressLine1;
     private String city;
     private String state;
+    private String zip;
 
     @OneToMany
     @JoinColumn(name = "publisher_id")
@@ -32,7 +32,7 @@ public class Publisher {
                 ", addressLine1='" + addressLine1 + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", books=" + books +
+                ", zip='" + zip + '\'' +
                 '}';
     }
 
@@ -41,12 +41,12 @@ public class Publisher {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Publisher publisher = (Publisher) o;
-        return Objects.equals(id, publisher.id);
+        return id != null ? id.equals(publisher.id) : publisher.id == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return id != null ? id.hashCode() : 0;
     }
 
     public Set<Book> getBooks() {
@@ -95,5 +95,13 @@ public class Publisher {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 }
